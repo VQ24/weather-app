@@ -1,0 +1,32 @@
+
+
+.card:hover {
+	box-shadow: 
+	0 4px 10px 0 rgba(0,0,0,0.14), 
+	0 2px 10px 0 rgba(0,0,0,0.12), 
+	0 6px 10px 0 rgba(0,0,0,0.2);
+}
+
+.card-image {
+	margin: 20px 10px;
+}
+
+.card-image p {
+	font-size: 20px;
+	text-align: center;
+	margin-top: 0;
+	color: DarkSlateGrey;
+}
+
+i {
+	margin-left: 0px;
+}
+
+a i {
+	color: Silver;
+}
+
+a i:hover {
+	color: black;
+	cursor: pointer;
+}

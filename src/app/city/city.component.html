@@ -1,0 +1,25 @@
+
+    <div class="col s12 m6 l4">
+      <a><i class="tiny material-icons right" (click) = "onClick()">close</i></a>
+      
+      <div class="card horizontal">
+
+        <div class="card-image">
+          <img src="{{city.icon}}">
+          <p><b>{{city.temp}}</b><sup> o</sup>C</p>
+        </div>
+        <div class="card-stacked">
+
+          <div class="card-content">
+
+            <h5>{{city.name}}</h5>
+            <p>{{city.description}}</p>
+          </div>
+          <div class="card-action">
+            <a routerLink="/cityweather" (click) = "onForecastClick()">Show forecast</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
