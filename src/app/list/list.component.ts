@@ -1,53 +1,57 @@
 import { Component, OnInit } from '@angular/core';
 import { CityService } from '../city.service';
-import { AppComponent } from '../app.component';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.css'],
-  providers: [CityService,
-  			AppComponent]
+  providers: [CityService]
 })
 export class ListComponent implements OnInit {
 
 searchStr = '';
 error;
 isError = true;
+cities;
+ 
+  constructor(private cityService: CityService, private store: Store<any> ) { 
 
-cityNames = [
-	{name: 'London'},
-	{name: 'Oymyakon'},
-	{name: 'Madrid'}
-];
-  
-	constructor(private cityService: CityService, private appComponent: AppComponent){}
+    store.select('store').subscribe(item => {
+    store = item;
+    });
+
+    this.cities = store;
+  }
 
   ngOnInit() {
 
-  	this.appComponent.cities.forEach(city => {
-	  	this.cityService.getCurrentWeather(city.name).subscribe(weather=>{
-	  		this.appComponent.cities.push(weather);
-	  	});  		
-  	});
-  	//console.log(this.appComponent.cities);
   }
 
   onChange(){
-  	this.cityService.getCurrentWeather(this.searchStr).subscribe(weather=>{
-  			this.appComponent.cities = this.appComponent.cities.filter(function(newItem) {
-  				return weather.id != newItem.id;
-  			});
-	  		this.appComponent.cities.push(weather);
-	  		this.isError = true;
-	  	},
-	  	error => {this.error = error.message;
-	  			this.isError = false;
-	  		});
-	this.searchStr = '';  
+    this.cityService.getCurrentWeather(this.searchStr).subscribe(weather=>{
+        this.cities = this.cities.filter(function(newItem) {
+          return weather.id != newItem.id;
+        });
+        this.cities.push(weather);
+
+        this.cityService.addCity(weather); 
+        this.isError = true;
+      },
+
+      error => {this.error = error.message;
+          this.isError = false;
+        });
+
+  this.searchStr = '';
   }
 
   onErrBtnClick(){
-  	this.isError = true;
+    this.isError = true;
   }
+
+  onKeyPress(){
+    this.isError = true;
+  }
+
 }
