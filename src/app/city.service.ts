@@ -10,8 +10,8 @@ import { Store } from '@ngrx/store';
 export class CityService{
 
 	constructor (private http: Http, private store: Store<any>) {
-		store.select('store').subscribe(item => {
-  		store = item;
+		store.select('cityData').subscribe(item => {
+  			store = item;
 		});
 	}
 

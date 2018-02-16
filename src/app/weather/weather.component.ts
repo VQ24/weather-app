@@ -6,40 +6,24 @@ import { CountryCodesPipe } from '../countryCodes.pipe';
 @Component({
   selector: 'app-weather',
   templateUrl: './weather.component.html',
-  styleUrls: ['./weather.component.css'],
-  providers: [CityService]
+  styleUrls: ['./weather.component.css']
 })
 export class WeatherComponent implements OnInit {
 
 id;
-city = {list:[]};
+  city = {list:[]};
 
-curState = {
-        dt:'',
-        main:{
-            temp:'',
-            temp_min:'',
-            temp_max:'',
-            pressure:'',
-            sea_level:'',
-            grnd_level:'',
-            humidity:'',
-            temp_kf:''},
-        weather:[{id:'',
-            main:'',
-            description:'',
-            icon:''}],
-        clouds:{all:''},
-        wind:{speed:'',
-              deg:''},
-        sys:{pod:''},
-        dt_txt:''
-      };
+  public curState;
+  public isLoaded = false;
 
 
   constructor(private route: ActivatedRoute, private cityService: CityService) {
-    this.id = +this.route.snapshot.paramMap.get('id');
-    this.cityService.getForecast(this.id).subscribe(weather=>{this.city = weather},
+    this.id = Number(this.route.snapshot.paramMap.get('id'));
+    this.cityService.getForecast(this.id).subscribe(weather=>{
+      this.city = weather;
+      this.curState = this.city.list[0];
+      this.isLoaded = true;
+    },
     error => {});
 
    }
