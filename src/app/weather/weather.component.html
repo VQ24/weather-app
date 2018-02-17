@@ -1,3 +1,70 @@
-<a routerLink="">Back</a>
-<br>
-      <a (click) = "getCity()">get</a>
+
+<div class = "container" *ngIf="isLoaded">
+	<div class="row">
+
+		<div class="col s12">
+		 <h4><span class ="info">Weather forecast for</span><br> 
+		 	<b>{{city.name}}</b>, {{city.country | countryCode}}
+		 </h4>	  
+		 
+		  <div class="card">
+		    <div class="card-content">
+		      <p><span class ="info">Time:</span><i> <b>{{curState.dt_txt | date:"HH:mm"}}</b>  {{curState.dt_txt | date:"fullDate"}}</i><br><br>
+		      	<span class ="info">Temperature:</span> 
+		      	<span class ="temerature-diapason"><b>{{curState.main.temp_min | number: '1.0-0'}}</b><sup> o</sup>C ... <b>{{curState.main.temp_max | number: '1.0-0'}}</b><sup> o</sup>C
+		      	</span>
+		      </p>
+
+		      <p><span class ="info">Condition:</span>
+		      	<img [attr.src]="curState.weather[0].icon? 'http://openweathermap.org/img/w/'+curState.weather[0].icon+'.png' :''">
+		      	{{curState.weather[0].description}}
+		      </p><br>
+		      
+		      <p><span class ="info">Wind:</span> <i> {{curState.wind.deg | wind}} </i>,  <b>  {{curState.wind.speed}}</b> m/s;
+				<span class ="info">Humidity: </span> <b>  {{curState.main.humidity}}</b>, %
+		      </p>
+
+		    </div>
+		    <div class="card-tabs">
+		      
+		      <ul class="tabs">
+
+		        <li 
+		       *ngFor = "let c of city.list"
+		       (click) = "onDeatilClick(c)">
+			        <div class = "detail-tab"
+					 [class.active] = "clicked === c" 
+       				 (mouseenter) = "clicked = (clicked === c ? null :c)">
+			   		 <p><b>{{c.main.temp | number: '1.1-1'}}</b><sup> o</sup>C<br>
+			   		 	<small>{{c.dt_txt | date:"HH:mm"}}</small>
+			   		 </p>
+			   		 <br>
+			   		 <svg [attr.width]="clicked === c ? 50 :10" height="160">
+
+			   		 	<line 
+			   		 	 [attr.x1]="clicked === c ? 25 :5" 
+			   		 	 y1="100" 
+			   		 	 [attr.x2]="clicked === c ? 25 :5" 
+			   		 	 [attr.y2]="100-c.main.temp"
+			   		 	 [style.stroke]="c.main.temp>0? 'orangered' :'cornflowerblue'" 
+			   		 	 [style.stroke-width]="clicked === c ? 50 :10"
+ 		   		 		/>
+ 		   		 		<line 
+			   		 	 [attr.x1]="clicked === c ? 25 :5" 
+			   		 	 [attr.y1]="100-c.main.temp_max"
+			   		 	 [attr.x2]="clicked === c ? 25 :5" 
+			   		 	 [attr.y2]="100-c.main.temp_min"
+			   		 	 [style.stroke]="c.main.temp>0? 'red' :'blue'" 
+			   		 	 [style.stroke-width]="clicked === c ? 50 :10"
+ 		   		 		/>
+			   		 </svg>
+			   		</div>        	
+		        </li>
+		      </ul>
+		    </div>
+
+		</div>
+	  <a class="waves-effect waves-light btn" routerLink="">Back</a>
+	</div>
+</div>
+

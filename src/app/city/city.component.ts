@@ -1,29 +1,29 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { AppComponent } from '../app.component';
-import { WeatherComponent } from '../weather/weather.component';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { CityService } from '../city.service';
+import { City, cityReducer } from '../cityReducer';
 
 @Component({
   selector: 'app-city',
   templateUrl: './city.component.html',
-  styleUrls: ['./city.component.css']
+  styleUrls: ['./city.component.css'],
 })
+
 export class CityComponent implements OnInit {
 
-  constructor (private appComponent: AppComponent,
-               private weatherComponent: WeatherComponent) {}
+  @Output() public onRemoveCity = new EventEmitter();
+
+  constructor (private cityService: CityService) {}
 
   ngOnInit() {
-
   }
 
   @Input() city; 
   
-  onClick() {
-  	let city = this.city; 
-  	this.appComponent.cities = this.appComponent.cities.filter(newItem => city != newItem);
+  onClose() {
+    this.onRemoveCity.emit(this.city);
   }
 
-  onForecastClick() {
-    this.weatherComponent.setCity(this.city);
+  onForecast(){
   }
+
 }

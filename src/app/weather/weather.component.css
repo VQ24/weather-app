@@ -1,0 +1,52 @@
+
+.card {
+	min-height: 450px;
+}
+
+.tabs {
+	height: inherit;
+	width: inherit;
+	margin: 10px;
+}
+
+.detail-tab {
+	border: none 1px gainsboro;
+	border-style: none dashed none none;
+	margin-bottom: 10px;
+	margin-top: 10px;
+	min-height: 100px;
+}
+
+ul li{
+	display: inline-block;
+}
+
+ul li:first-child .detail-tab {
+	border-style: none dashed none dashed;	
+}
+
+.active {
+	min-width: 50px;
+}
+
+.detail-tab p {
+	display: none;
+}
+
+.detail-tab:hover {
+	background-color: aliceblue;	
+	cursor: pointer;
+}
+
+.active p {
+	display: block;
+	position: absolute;
+	top: 30px;
+}
+.temerature-diapason {
+	font-size: 2em;
+}
+
+.info {
+	color: grey;
+}

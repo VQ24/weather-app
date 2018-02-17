@@ -1,6 +1,6 @@
 
     <div class="col s12 m6 l4">
-      <a><i class="tiny material-icons right" (click) = "onClick()">close</i></a>
+      <a><i class="tiny material-icons right" (click) = "onClose()">close</i></a>
       
       <div class="card horizontal">
 
@@ -16,7 +16,7 @@
             <p>{{city.description}}</p>
           </div>
           <div class="card-action">
-            <a routerLink="/cityweather" (click) = "onForecastClick()">Show forecast</a>
+            <a routerLink="/cityweather/{{city.id}}" (click) = "onForecast()">Show forecast</a>
           </div>
         </div>
       </div>
