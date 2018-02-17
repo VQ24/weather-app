@@ -20,6 +20,7 @@
    <app-city 
     *ngFor = "let c of cities"
     [city] = "c"
+    (onRemoveCity)="handleRemoveCity($event)"
    ></app-city>
   </div>
 </div>

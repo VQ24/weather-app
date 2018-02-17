@@ -5,8 +5,7 @@ import { Store } from '@ngrx/store';
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
-  styleUrls: ['./list.component.css'],
-  providers: [CityService]
+  styleUrls: ['./list.component.css']
 })
 export class ListComponent implements OnInit {
 
@@ -17,8 +16,8 @@ cities;
  
   constructor(private cityService: CityService, private store: Store<any> ) { 
 
-    store.select('store').subscribe(item => {
-    store = item;
+    store.select('cityData').subscribe(item => {
+      store = item;
     });
 
     this.cities = store;
@@ -52,6 +51,11 @@ cities;
 
   onKeyPress(){
     this.isError = true;
+  }
+
+  public handleRemoveCity(city) {
+     this.cities = this.cities.filter(newItem => city != newItem);
+     this.cityService.removeCity(city);
   }
 
 }
