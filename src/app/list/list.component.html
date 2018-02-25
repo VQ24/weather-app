@@ -3,7 +3,8 @@
    <div class="row">
 	<h2>Weather app</h2>
         <div class="input-field col s12 m6">
-          <input id="last_name" class="validate" [(ngModel)] = "searchStr" (change) = "onChange()">
+          <input id="last_name" class="validate" [(ngModel)] = "searchStr" (change) = "onChange()"
+          (keypress) = "onKeyPress()">
           <label for="last_name" class = "active">Choose city:</label>
         </div>
         <div class="input-field col s12 m6">
@@ -17,8 +18,9 @@
 
   <div class="row">
    <app-city 
-    *ngFor = "let c of appComponent.cities"
+    *ngFor = "let c of cities"
     [city] = "c"
+    (onRemoveCity)="handleRemoveCity($event)"
    ></app-city>
   </div>
 </div>
